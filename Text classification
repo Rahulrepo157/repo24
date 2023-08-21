@@ -1,0 +1,18 @@
+
+!wget -nc https://raw.githubusercontent.com/lazyprogrammer/machine_learning_examples/master/hmm_class/edgar_allan_poe.txt
+!wget -nc https://raw.githubusercontent.com/lazyprogrammer/machine_learning_examples/master/hmm_class/robert_frost.txt
+
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import string
+
+from sklearn.model_selection import train_test_split
+input_files=['edgar allan poe.txt',  
+             
+'robert_frost.txt', 
+] 
+!head edgar_allan_poe.txt 
+!head robert_frost.txt 
