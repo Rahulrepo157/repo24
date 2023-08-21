@@ -1,0 +1,46 @@
+import re
+import random
+
+
+def article_spinner(article):
+  """
+  Spins an article by replacing words with synonyms.
+
+  Args:
+    article: The article to be spun.
+
+  Returns:
+    The spun article.
+  """
+
+  # Load the synonym dictionary.
+  with open("synonyms.txt") as f:
+    synonym_dict = dict(line.split("\t") for line in f)
+
+  # Replace words with synonyms.
+  words = article.split()
+  spun_words = []
+  for word in words:
+    if word in synonym_dict:
+      spun_words.append(random.choice(synonym_dict[word]))
+    else:
+      spun_words.append(word)
+
+  # Return the spun article.
+  return " ".join(spun_words)
+
+
+def main():
+  # Read the article.
+  with open("article.txt") as f:
+    article = f.read()
+
+  # Spin the article.
+  spun_article = article_spinner(article)
+
+  # Print the spun article.
+  print(spun_article)
+
+
+if __name__ == "__main__":
+  main()
