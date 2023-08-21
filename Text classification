@@ -15,4 +15,166 @@ input_files=['edgar allan poe.txt',
 'robert_frost.txt', 
 ] 
 !head edgar_allan_poe.txt 
-!head robert_frost.txt 
+!head robert_frost.txt  
+input_texts=[] 
+labels=[] 
+for label, f in enumerate(input_files):
+    # Print the file name and the corresponding label.
+    print(f"({f}) corresponds to label ({label})")
+
+    # Read each line in the file.
+    for line in open(f):
+      # Remove the trailing whitespace and convert the text to lowercase.
+      line = line.rstrip().lower()
+
+      # If the line is not empty, remove the punctuation.
+      if line:
+        line = line.translate(str.maketrans(string.punctuation, ""))
+
+        # Append the preprocessed text and label to the lists.
+        input_texts.append(line)
+        labels.append(label) 
+train_text,test_text,ytrain,ytest=train_test_split(input_tests,labels) 
+train_text[:5] 
+Ytrain[:5] 
+idx=1 
+word2idx={"<uk>':0} 
+for text in train text:
+
+    tokens text.split()
+
+    for token in tokens:
+
+        if token not in word2idx: 
+            word2idx[token]=idx 
+            idx += 1
+
+
+test_text_int = []
+
+for text in train_text: tokens text.split()
+
+    line_as_int = [word2idx[token] for token in tokens
+
+    train_text_int.append(line_as_int)
+
+for text in test_text:
+
+     tokens text.split()
+
+     line_as_int = [word2idx.get(token, 0) for token in tokens 
+     test_text_int.append(line_as_int)
+
+V=len(word2ix)
+
+AO=np.ones((V, V)) p0np.ones(V)
+
+Al=np.ones((V, V))
+
+pii = np.ones(V) 
+def compute counts(text_as int, A, pi):
+
+   for tokens in text an int:
+
+      last idx one for idx in tokens 
+def compute_counts (text_as_int, A, pi):
+
+
+
+    for tokens in text_as_int:
+
+        last_idx =None
+
+        for idx in tokens:
+
+            if last_idx is None:
+
+# it's the first word in a sentence
+
+                pi[lidx] += 1
+
+          else: # the last word exists, so count a transition
+
+               A[last_idx, idx] += 1 
+               lastinx=idx 
+
+AO /= AO.num(axis=1, keepdims=True)
+pio /= pio.sum()
+Al /= Al.sum(axis=1, keepdims=True pil / pil.sum()
+logA0=np.log(A1) 
+logpi1=np.log(pi1) 
+count0=sum(y==0 for y in Ytrain)  
+count1=sum(y==0 for y in Ytrain)  
+p0=count0/total 
+p1=count1/total 
+logp0=np.log(p0)  
+
+logp1=np.log(p0) 
+p0,p1 
+class Classifier:
+
+  def __init__(self, log_as, log_pis, log_priors):
+    """
+    Initialize the classifier.
+
+    Args:
+      log_as: A dictionary mapping from class index to a vector of log emission probabilities.
+      log_pis: A vector of log prior probabilities for each class.
+      log_priors: A vector of log prior probabilities for each class.
+    """
+    self.log_as = log_as
+    self.log_pis = log_pis
+    self.log_priors = log_priors
+    self.k = len(log_priors)
+
+  def compute_log_likelihood(self, input, class_):
+    """
+    Compute the log likelihood of the input sequence for the given class.
+
+    Args:
+      input: A sequence of integers representing the input tokens.
+      class_: The class index.
+
+    Returns:
+      The log likelihood of the input sequence for the given class.
+    """
+    loga = self.log_as[class_]
+    logpi = self.log_pis[class_]
+    last_idx = None
+    log_prob = 0.0
+    for idx in input:
+      if last_idx is None:
+        log_prob += loga[idx]
+      else:
+        log_prob += self.log_as[idx, last_idx]
+      last_idx = idx
+    log_prob += logpi
+    return log_prob
+
+def predict(self, inputs):
+  """
+  Predict the class labels for the given input sequences.
+
+  Args:
+    inputs: A list of input sequences.
+
+  Returns:
+    A list of predicted class labels.
+  """
+  predictions = np.zeros(len(inputs))
+  for i, input in enumerate(inputs):
+    posteriors = self.compute_log_likelihood(input)
+    predictions[i] = np.argmax(posteriors)
+  return predictions
+
+
+clf = Classifier([log_a, log_al], [log_pi, log_pil], [log_po, log_p11])
+
+P_train = clf.predict(train_text_int)
+print("Train acc:", np.mean(P_train == y_train))
+
+
+
+
+
+
