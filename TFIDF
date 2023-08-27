@@ -1,0 +1,26 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Sample documents
+documents = [
+    "The cat in the hat.",
+    "The dog chased the cat.",
+    "The hat is red."
+]
+
+# Create a TF-IDF vectorizer
+vectorizer = TfidfVectorizer()
+
+# Fit and transform the documents
+tfidf_matrix = vectorizer.fit_transform(documents)
+
+# Get the feature names (words) in the vocabulary
+feature_names = vectorizer.get_feature_names_out()
+
+# Convert the TF-IDF matrix to an array for easier inspection
+tfidf_array = tfidf_matrix.toarray()
+
+# Print the feature names
+print("Feature Names:", feature_names)
+
+# Print the TF-IDF matrix
+print("TF-IDF Matrix:\n", tfidf_array)
