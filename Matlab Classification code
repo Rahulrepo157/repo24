@@ -1,0 +1,50 @@
+% Step 1: Load your dataset
+% Load your dataset into variables X (features) and Y (class labels)
+load('your_dataset.mat');  % Replace 'your_dataset.mat' with your actual dataset
+
+% Step 2: Data Preprocessing
+% Handling Missing Values (Replace missing values with the mean of the feature)
+X = fillmissing(X, 'mean');
+
+% Feature Scaling (Normalize the features to have zero mean and unit variance)
+X = zscore(X);
+
+% Step 3: Split the dataset into training and testing sets
+rng(123);  % For reproducibility
+cv = cvpartition(Y, 'HoldOut', 0.2);  % 80% for training, 20% for testing
+X_train = X(training(cv), :);
+Y_train = Y(training(cv), :);
+X_test = X(test(cv), :);
+Y_test = Y(test(cv), :);
+
+% Step 4: Create a KNN classifier
+K = 5;  % Number of nearest neighbors
+knn_classifier = fitcknn(X_train, Y_train, 'NumNeighbors', K);
+
+% Step 5: Make predictions on the test set
+Y_pred = predict(knn_classifier, X_test);
+
+% Step 6: Evaluate the model
+accuracy = sum(Y_pred == Y_test) / numel(Y_test);
+confusion_matrix = confusionmat(Y_test, Y_pred);
+
+disp(['Accuracy: ' num2str(accuracy)]);
+disp('Confusion Matrix:');
+disp(confusion_matrix);
+
+% Step 7: Visualization (Optional)
+% Depending on your dataset, you can visualize the results, features, or decision boundaries.
+% For visualization, consider using MATLAB's built-in functions like plot, scatter, or imagesc.
+
+% Example: Visualizing a 2D feature space
+if size(X, 2) == 2
+    figure;
+    gscatter(X_train(:, 1), X_train(:, 2), Y_train, 'br', 'xo');
+    hold on;
+    gscatter(X_test(:, 1), X_test(:, 2), Y_test, 'gm', 'x*');
+    title('KNN Classification');
+    legend('Class 0 (Train)', 'Class 1 (Train)', 'Class 0 (Test)', 'Class 1 (Test)');
+    xlabel('Feature 1');
+    ylabel('Feature 2');
+    hold off;
+end
