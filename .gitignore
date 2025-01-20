@@ -1,0 +1,29 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environment folder
+venv/
+env/
+
+# Data files
+data/
+*.csv
+*.xlsx
+*.json
+
+# TensorFlow/ML model files
+*.h5
+*.ckpt
+*.tflite
+
+# Logs
+*.log
+logs/
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
